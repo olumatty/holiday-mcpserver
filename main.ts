@@ -191,11 +191,26 @@ server.setRequestHandler(
             `PublicHolidays/${year}/${countryCode}`
           );
 
+          let markdown = `# Holidays for ${country.toUpperCase}\n\n`;
+
+          if (data && data.length > 0) {
+            data.forEach((holiday: APIHoliday, index: number) => {
+              markdown += `## ${index + 1}. ${holiday.name}\n\n`;
+              markdown += `Date: ${holiday.date}\n\n`;
+              markdown += `Country Code: ${holiday.countryCode}\n\n`;
+              markdown += `Launch Year: ${holiday.launchYear}\n\n`;
+              markdown += `Counties: ${holiday.counties}\n\n`;
+              markdown += `Global: ${holiday.global}\n\n`;
+            });
+          } else {
+            markdown += "No holidays found for this country.";
+          }
+
           return {
             content: [
               {
                 type: "text",
-                text: JSON.stringify(data, null, 2),
+                text: markdown,
               },
             ],
           };
@@ -239,11 +254,30 @@ server.setRequestHandler(
             }
           }
 
+          let markdown = `# International Holidays (${year})\n\n`;
+          markdown += `*Showing ${
+            globalOnly ? "global" : "sample"
+          } holidays from ${holidaysByCountry.length} countries*\n\n`;
+
+          if (holidaysByCountry.length === 0) {
+            markdown += "No holidays found for this country.";
+          } else {
+            holidaysByCountry.forEach((country, index) => {
+              markdown += `## ${index + 1}. ${country.country}\n\n`;
+              country.holidays.forEach((holiday: APIHoliday) => {
+                markdown += `### ${holiday.name}\n\n`;
+                markdown += `Date: ${holiday.date}\n\n`;
+                markdown += `Launch Year: ${holiday.launchYear}\n\n`;
+                markdown += `Global: ${holiday.global}\n\n`;
+              });
+            });
+          }
+
           return {
             content: [
               {
                 type: "text",
-                text: JSON.stringify(holidaysByCountry, null, 2),
+                text: markdown,
               },
             ],
           };
@@ -286,11 +320,28 @@ server.setRequestHandler(
               )
               .slice(0, limit);
 
+            let markdown = `# Next Holidays (${limit} items)\n\n`;
+
+            if (upcomingHolidays.length === 0) {
+              markdown += "No holidays found for this country.";
+            } else {
+              upcomingHolidays.forEach((holiday: Holiday, index: number) => {
+                markdown += `## ${index + 1}. ${holiday.name}\n\n`;
+                markdown += `Date: ${holiday.date}\n\n`;
+                markdown += `Country Code: ${holiday.countryCode}\n\n`;
+                markdown += `- **Global:** ${holiday.global ? "Yes" : "No"}\n`;
+                if (holiday.counties) {
+                  markdown += `- **Counties:** ${holiday.counties}\n`;
+                }
+                markdown += `\n`;
+              });
+            }
+
             return {
               content: [
                 {
                   type: "text",
-                  text: JSON.stringify(upcomingHolidays, null, 2),
+                  text: markdown,
                 },
               ],
             };
@@ -325,11 +376,27 @@ server.setRequestHandler(
               )
               .slice(0, limit);
 
+            let markdown = `# Next Global Holidays (${limit} items)\n\n`;
+
+            if (sortedHolidays.length === 0) {
+              markdown += "No holidays found for this country.";
+            } else {
+              sortedHolidays.forEach((holiday: Holiday, index: number) => {
+                markdown += `## ${index + 1}. ${holiday.name}\n\n`;
+                markdown += `Date: ${holiday.date}\n\n`;
+                markdown += `Country Code: ${holiday.countryCode}\n\n`;
+                markdown += `- **Global:** ${holiday.global ? "Yes" : "No"}\n`;
+                if (holiday.counties) {
+                  markdown += `- **Counties:** ${holiday.counties}\n`;
+                }
+                markdown += `\n`;
+              });
+            }
             return {
               content: [
                 {
                   type: "text",
-                  text: JSON.stringify(sortedHolidays, null, 2),
+                  text: markdown,
                 },
               ],
             };
@@ -375,11 +442,25 @@ server.setRequestHandler(
             )
             .slice(0, limit);
 
+          let markdown = `# Next Holidays (${limit} items)\n\n`;
+
+          if (sortedHolidays.length === 0) {
+            markdown += "No holidays found for this country.";
+          } else {
+            sortedHolidays.forEach((holiday: Holiday, index: number) => {
+              markdown += `## ${index + 1}. ${holiday.name}\n\n`;
+              markdown += `Date: ${holiday.date}\n\n`;
+              markdown += `LocalName: ${holiday.localName}\n\n`;
+              markdown += `Global: ${holiday.global ? "Yes" : "No"}\n\n`;
+              markdown += `Public: ${holiday.types[0] ? "Yes" : "No"}\n\n`;
+            });
+          }
+
           return {
             content: [
               {
                 type: "text",
-                text: JSON.stringify(sortedHolidays, null, 2),
+                text: markdown,
               },
             ],
           };

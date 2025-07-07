@@ -8,6 +8,10 @@ export interface Holiday {
     global?: boolean;
     country?: string[] | {};
     countryCode: string;
+    counties?: string[];
+    launchYear: number;
+    types: string[];
+    LocalName: string;
 }
 export interface APIHoliday {
     date: string;
