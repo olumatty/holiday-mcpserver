@@ -1,0 +1,9 @@
+{
+    "servers":{
+        "holiday-mcp-server":{
+            "type": "stdio",
+            "command": "npx",
+            "args": ["tsx", "${workspaceFolder}/main.ts"] 
+        }
+    }
+}

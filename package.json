@@ -1,0 +1,25 @@
+{
+  "name": "holiday-mcp-server",
+  "version": "1.0.0",
+  "main": "ibuild/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/tsx main.ts",
+    "dev": "tsx main.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.15.0",
+    "i18n-iso-countries": "^7.14.0",
+    "zod": "^3.25.75"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.10",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
