@@ -2,9 +2,10 @@
   "name": "holiday-mcp-server",
   "version": "1.0.0",
   "main": "ibuild/main.js",
+  
   "scripts": {
     "build": "tsc",
-    "start": "node build/tsx main.ts",
+    "start": "node build/tsx main.js",
     "dev": "tsx main.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
